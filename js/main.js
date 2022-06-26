@@ -1,5 +1,5 @@
-// Start writing JavaScript here!
 
+//Switching slides with JS by next and previous button
 
 const carousel = document.querySelector('.carousel')
 const previousButton = carousel.querySelector('.previous-button')
@@ -12,7 +12,7 @@ nextButton.addEventListener('click', event => {
     const nextSlide = currentSlide.nextElementSibling
     const destination = getComputedStyle(nextSlide).left
     
-    contents.style.left = `-${destination}`
+    contents.style.left = `-${destination}`  //Understand this//
     currentSlide.classList.remove('is-selected')
     nextSlide.classList.add('is-selected')
     previousButton.removeAttribute('hidden')
@@ -37,6 +37,8 @@ previousButton.addEventListener('click', event => {
     }
     
 })
+
+// Connecting slides with dots 
 
 const slides = Array.from(carousel.querySelectorAll('.carousel_slide'))
 
@@ -64,13 +66,13 @@ dots.forEach(dot => {
             d.classList.remove('is-selected')
 
         slides.forEach(slide => {
-            slide.classList.remove('.is-selected')
+            slide.classList.remove('is-selected')
         })
 
         dot.classList.add('is-selected')
-        slideToShow.classList.add('.is-selected')
+        slideToShow.classList.add('is-selected')
 
-        //show-hide buttons wrt dots
+       
 
         if (clickedDotIndex === 0) {
             previousButton.setAttribute('hidden', true)
@@ -86,7 +88,7 @@ dots.forEach(dot => {
     
     })
 })
-
+ //show-hide buttons wrt dots
 
 const dotsContainer = carousel.querySelector('.carousel_dots')
 
@@ -102,4 +104,17 @@ previousButton.addEventListener('click', event => {
     const previousDot = currentDot.previousElementSibling
     currentDot.classList.remove('is-selected')
     previousDot.classList.add('is-selected')
+})
+
+
+// Setting slides with javaScript for responsive design
+
+const slideWidth = slides[0].getBoundingClientRect().width
+
+// slides[0].style.left = slideWidth*0 +'0px'
+// slides[1].style.left = slideWidth*1 + 'px'
+// slides[2].style.left = slideWidth*2 + 'px' or use forEach loop
+
+slides.forEach((slide, index) => {
+    slide.style.left = slideWidth*index + 'px'
 })

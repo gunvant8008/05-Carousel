@@ -12,8 +12,8 @@ body {
 
 .carousel {
   display: grid;
-  grid-template-columns: 3em 800px 3em;
-  grid-template-rows: 70vh 3em;
+  grid-template-columns: 3em 80vw 3em;
+  grid-template-rows: 50vh 3em;
   align-items: center;
   grid-gap: 1em;
 }
@@ -30,6 +30,7 @@ body {
   overflow: hidden;
 }
 
+/* Ask relative and absolute*/
 .carousel_contents {
   position: relative;
   width: 100%;
@@ -40,17 +41,20 @@ body {
   width: inherit;
   height: inherit;
 }
-.carousel_slide:nth-child(2) {
+/* .carousel_slide:nth-child(2) {
   left: 800px;
 }
 .carousel_slide:nth-child(3) {
-  left: 1600px;
-}
+  left: 1600px; 
+}*/
+/* Ask*/
 .carousel_slide > a {
   display: block;
   width: inherit;
   height: inherit;
 }
+
+/* Ask object fit*/
 .carousel_slide img {
   width: inherit;
   height: inherit;
@@ -107,3 +111,7 @@ body {
 .is-hidden {
   display: none;
 }
+
+/**
+ Here is-selected class is not define for any slide?
+ */
