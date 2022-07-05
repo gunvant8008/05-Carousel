@@ -1,22 +1,33 @@
 
 //Switching slides with JS by next and previous button
 
+
+
 const carousel = document.querySelector('.carousel')
 const previousButton = carousel.querySelector('.previous-button')
 const nextButton = carousel.querySelector('.next-button')
 
 const contents = carousel.querySelector('.carousel_contents')
 
+function switchSlide(currentSlide, targetSlide) {
+    const destination = getComputedStyle(targetSlide).left
+    contents.style.transform = `translateX(-${destination})`  //Understand this//
+    currentSlide.classList.remove('is-selected')
+    targetSlide.classList.add('is-selected')
+
+}
+
 nextButton.addEventListener('click', event => {
     const currentSlide = contents.querySelector('.is-selected')
     const nextSlide = currentSlide.nextElementSibling
-    const destination = getComputedStyle(nextSlide).left
     
-    contents.style.transform = 'translateX(-' + destination + ')'  //Understand this//
-    currentSlide.classList.remove('is-selected')
-    nextSlide.classList.add('is-selected')
+    //Show next slide
+    switchSlide(currentSlide, nextSlide)
+
+    //Show previous slide
     previousButton.removeAttribute('hidden')
 
+    //Hides next button
     if (!nextSlide.nextElementSibling) {
         nextButton.setAttribute('hidden', true)
     }
@@ -25,13 +36,14 @@ nextButton.addEventListener('click', event => {
 previousButton.addEventListener('click', event => {
     const currentSlide = contents.querySelector('.is-selected')
     const previousSlide = currentSlide.previousElementSibling
-    const destination = getComputedStyle(previousSlide).left
-
-    contents.style.transform ='translateX(-' + destination + ')'
-    currentSlide.classList.remove('is-selected')
-    previousSlide.classList.add('is-selected')
+    
+    //Show previous slide
+    switchSlide(currentSlide, previousSlide)
+    
+    //Shows next button
     nextButton.removeAttribute('hidden')
 
+    //Hides previous button
     if (!previousSlide.previousElementSibling) {
         previousButton.setAttribute('hidden', true)
     }
@@ -60,7 +72,7 @@ dots.forEach(dot => {
         const slideToShow = slides[clickedDotIndex]
         const destination = getComputedStyle(slideToShow).left
         
-        contents.style.transform ='translateX(-' + destination + ')'
+        contents.style.transform =`translateX(-${destination})`
 
         dots.forEach(d => {
             d.classList.remove('is-selected')
@@ -88,33 +100,43 @@ dots.forEach(dot => {
     
     })
 })
- //show-hide buttons wrt dots
-
+ 
+//show-hide buttons wrt dots
 const dotsContainer = carousel.querySelector('.carousel_dots')
 
+function heighlightDot (currentDot, targetDot) {
+    currentDot.classList.remove('is-selected')
+    targetDot.classList.add('is-selected')
+}
+
 nextButton.addEventListener('click', event => {
+    //Heighlight dot
     const currentDot = dotsContainer.querySelector('.is-selected')
     const nextDot = currentDot.nextElementSibling
-    currentDot.classList.remove('is-selected')
-    nextDot.classList.add('is-selected')
+    
+    heighlightDot(currentDot, nextDot)
 })
-
+    
 previousButton.addEventListener('click', event => {
+    //Heighlight dot
     const currentDot = dotsContainer.querySelector('.is-selected')
     const previousDot = currentDot.previousElementSibling
-    currentDot.classList.remove('is-selected')
-    previousDot.classList.add('is-selected')
+    
+    heighlightDot(currentDot, previousDot)
 })
 
 
 // Setting slides with javaScript for responsive design
 
-const slideWidth = slides[0].getBoundingClientRect().width
+function setSlidePosition () {
+    const slideWidth = slides[0].getBoundingClientRect().width
 
-// slides[0].style.left = slideWidth*0 +'0px'
-// slides[1].style.left = slideWidth*1 + 'px'
-// slides[2].style.left = slideWidth*2 + 'px' or use forEach loop
-
-slides.forEach((slide, index) => {
-    slide.style.left = slideWidth*index + 'px'
-})
+    // slides[0].style.left = slideWidth*0 +'0px'
+    // slides[1].style.left = slideWidth*1 + 'px'
+    // slides[2].style.left = slideWidth*2 + 'px' or use forEach loop
+    
+    slides.forEach((slide, index) => {
+        slide.style.left = slideWidth*index + 'px'
+    })
+}
+setSlidePosition()
